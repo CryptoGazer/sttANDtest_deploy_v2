@@ -455,7 +455,6 @@ def create_candle_plot():
     conn_bids.close()
 
     # Обновление графика с временными метками
-
     update_start_timestamps()
     fig.update_layout(
         plot_bgcolor='#101014',
