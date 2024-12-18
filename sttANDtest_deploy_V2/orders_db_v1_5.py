@@ -16,6 +16,12 @@ ROUNDING_CONSTANTS = {
     "SOLUSDT": 1
 }
 
+SYMBOLS_CONSTANTS = {
+    "BTCUSDT": [10000, 4],  # 1
+    "ETHUSDT": [7000, 0.3],
+    "SOLUSDT": [5000, 0.05]
+}
+
 
 # def get_binance_futures_symbols() -> list:
 #     exchange_info_url = "https://fapi.binance.com/fapi/v1/exchangeInfo"
@@ -261,7 +267,7 @@ def fetch_data(conn_asks,
     # pprint(ALL_BIDS)
 
 
-def main(symbol_):
+def main(symbol_: str):
     # symbols = get_binance_futures_symbols()
     symbols = ("BTCUSDT", "ETHUSDT", "SOLUSDT")
     conn_asks = sqlite3.connect("orders_asks.db")
@@ -280,7 +286,7 @@ def main(symbol_):
         cursor_bids,
         symbol_,
         5000,
-        1  # 0.103
+        round(SYMBOLS_CONSTANTS.get(symbol_)[0] / get_latest_price(symbol_), 4)
     )
 
     cursor_asks.close()
@@ -300,7 +306,7 @@ if __name__ == "__main__":
             try:
                 pool.map(main, symbols)
             except Exception as e:
-                print(f"\n\tThe connection was terminated!\nError: {e}")
+                print(f"\n\tThe connection was terminated!\nError: {e}\n{e.args}")
         sleep(10)
 
         # TEST
