@@ -130,33 +130,15 @@ BARS_SCALE_COEF = 0
 ID_OF_COMPLETED_ORDERS = dict()
 BINANCE_LIMIT = 5000  # 1000
 NZ_VOLUME_ROUNDING_CONST = 4
-
-UPDATE_INTERVAL_SEC = 10
 total_ask_value = []
 total_bid_value = []
 nzVolume = 0
 BASE_URL = "https://api.binance.com"
-# CONN_ASKS = sqlite3.connect("/Users/cryptogazer/Desktop/PABLO/Freelance/Websites/sttANDtest_deploy_v2/sttANDtest_deploy_V2/orders_asks.db")
-# CUR_ASKS = CONN_ASKS.cursor()
-# CONN_BIDS = sqlite3.connect("/Users/cryptogazer/Desktop/PABLO/Freelance/Websites/sttANDtest_deploy_v2/sttANDtest_deploy_V2/orders_bids.db")
-# CUR_BIDS = CONN_BIDS.cursor()
-
-
 ROUNDING_CONSTANTS = {
     "BTCUSDT": -1,
     "ETHUSDT": 0,
     "SOLUSDT": 1
 }
-
-
-# def get_binance_futures_symbols() -> list:
-#     exchange_info_url = "https://fapi.binance.com/fapi/v1/exchangeInfo"
-#
-#     exchange_info_response = requests.get(exchange_info_url)
-#     exchange_info_response.raise_for_status()
-#     data = exchange_info_response.json()
-#
-#     return [symbol_info["symbol"].replace('/', '') for symbol_info in data["symbols"] if not search(r'\d', symbol_info["symbol"])]
 
 
 def create_databases_by_symbols(conn, symbols_: list | tuple):
@@ -894,5 +876,6 @@ def index():
 if __name__ == '__main__':
     app.run(
         debug=True,
-        port=8080
+        host="0.0.0.0"
+        # port=8080
     )
